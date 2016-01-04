@@ -1,0 +1,6 @@
+C:\Users\Mario\Documents\Visual Studio 2013\Projects\Usuarios\Usuarios\bin\Usuarios.dll.config
+C:\Users\Mario\Documents\Visual Studio 2013\Projects\Usuarios\Usuarios\bin\Usuarios.dll
+C:\Users\Mario\Documents\Visual Studio 2013\Projects\Usuarios\Usuarios\bin\Usuarios.pdb
+C:\Users\Mario\Documents\Visual Studio 2013\Projects\Usuarios\Usuarios\obj\Debug\Usuarios.dll
+C:\Users\Mario\Documents\Visual Studio 2013\Projects\Usuarios\Usuarios\obj\Debug\Usuarios.pdb
+C:\Users\Mario\Documents\Visual Studio 2013\Projects\Usuarios\Usuarios\obj\Debug\Usuarios.csprojResolveAssemblyReference.cache

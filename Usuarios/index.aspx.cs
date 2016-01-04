@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -8,16 +9,16 @@ using System.Data;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
-using Usuarios;
+using System.Diagnostics;
+
 
 namespace Usuarios
 {
    
     public partial class index :  System.Web.UI.Page
     {
-        //Conexion conn = new Conexion();
-
-        SqlConnection con = new SqlConnection(@"Data Source=DEVMARIO\SQLEXPRESS;Initial Catalog=users;Integrated Security=True;Pooling=False");
+        Conexion con = new Conexion();
+        //SqlConnection con = new SqlConnection(@"Data Source=DEVMARIO\SQLEXPRESS;Initial Catalog=users;Integrated Security=True;Pooling=False");
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -42,11 +43,11 @@ namespace Usuarios
                 {
                     val1.Enabled = false;
                     val2.Enabled = false;
-                    con.Open();
+                    con.conn.Open();
                     string sql = "insert into partner(name,lastName,street,noExt,noInt,phone,movil,cp,state,city) values('" + txtNombre.Text + "','" + txtApellidos.Text + "','" + txtCalle.Text + "','" + txtNoExt.Text + "','" + txtNoInt.Text + "','" + txtTelefono.Text + "','" + txtMovil.Text + "','" + txtCP.Text + "','" + txtEstado.Text + "','" + txtCiudad.Text + "')";
-                    SqlCommand cmd = new SqlCommand(sql, con);
+                    SqlCommand cmd = new SqlCommand(sql, con.conn);
                     cmd.ExecuteNonQuery();
-                    lblMsg.Text = "Registro Exitoso";
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertScript", "alert('Registro Éxitoso')", true);
                     clear();
                 }
                 else
@@ -55,7 +56,7 @@ namespace Usuarios
                 }    
             }
             catch(System.FormatException){
-                lblMsg.Text = "Error al registrar";
+                lblMsg.Text = "Revise el formato de los campos";
             }
             catch (System.Web.HttpException)
             {
@@ -63,7 +64,7 @@ namespace Usuarios
             }
             finally
             {
-                con.Close();
+                con.conn.Close();
                 display();
             }
 
@@ -76,16 +77,16 @@ namespace Usuarios
                 lblMsg.Text = "";
                 val1.Enabled = true;
                 val2.Enabled = true;
-                con.Open();
+                con.conn.Open();
                 string sql = "update partner set name='" + txtNombre.Text + "',lastName='" + txtApellidos.Text + "', street='" + txtCalle.Text + "', noExt='" + txtNoExt.Text + "', noInt='" + txtNoInt.Text + "', phone='" + txtTelefono.Text + "', movil='" + txtMovil.Text + "', cp='" + txtCP.Text + "', state='" + txtEstado.Text + "', city='" + txtCiudad.Text + "' where id=" + Session["id"] + "";
-                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlCommand cmd = new SqlCommand(sql, con.conn);
                 cmd.ExecuteNonQuery();
-                lblMsg.Text = "Actualización Exitosa";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertScript", "alert('Actualización Éxitosa')", true);
                 clear();
             }
             catch (System.FormatException)
             {
-                lblMsg.Text = "Error de actualizar";
+                lblMsg.Text = "Revise el formato de los campos";
             }
             catch(System.Web.HttpException)
             {
@@ -93,7 +94,7 @@ namespace Usuarios
             }
             finally
             {
-                con.Close();
+                con.conn.Close();
                 display();
             }
             
@@ -106,16 +107,16 @@ namespace Usuarios
                 lblMsg.Text = "";
                 val1.Enabled = false;
                 val2.Enabled = false;
-                con.Open();
+                con.conn.Open();
                 string sql = "delete partner where id=" + Session["id"] + "";
-                SqlCommand cmd = new SqlCommand(sql,con);
+                SqlCommand cmd = new SqlCommand(sql,con.conn);
                 cmd.ExecuteNonQuery();
-                lblMsg.Text = "Eliminación Exitosa";
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertScript", "alert('Eliminación Éxitosa')", true);
                 clear();
             }
             catch (System.FormatException)
             {
-                lblMsg.Text = "Error de eliminación";
+                lblMsg.Text = "Revise el formato de los campos";
             }
             catch(System.Web.HttpException)
             {
@@ -123,7 +124,7 @@ namespace Usuarios
             }
             finally
             {
-                con.Close();
+                con.conn.Close();
                 display();
             } 
            
@@ -138,9 +139,9 @@ namespace Usuarios
                 lblMsg.Text = "";
                 val1.Enabled = false;
                 val2.Enabled = false;
-                con.Open();
+                con.conn.Open();
                 string sql = "select * from partner where id=" + Session["id"] + "";
-                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlCommand cmd = new SqlCommand(sql, con.conn);
                 DataTable dt = new DataTable();
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 adapter.Fill(dt);
@@ -161,7 +162,7 @@ namespace Usuarios
             }
             catch (System.FormatException)
             {
-                lblMsg.Text = "Error de seleccionar";
+                lblMsg.Text = "Revise el formato de los campos";
             }
             catch (System.Web.HttpException)
             {
@@ -169,7 +170,7 @@ namespace Usuarios
             }
             finally
             {
-                con.Close();
+                con.conn.Close();
             }
  
         }
@@ -181,9 +182,9 @@ namespace Usuarios
                 lblMsg.Text = "";
                 val1.Enabled = false;
                 val2.Enabled = false;
-                con.Open();
+                con.conn.Open();
                 string sql = "select * from partner";
-                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlCommand cmd = new SqlCommand(sql, con.conn);
                 DataTable dt = new DataTable();
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 adapter.Fill(dt);
@@ -200,7 +201,7 @@ namespace Usuarios
             }
             finally
             {
-                con.Close();
+                con.conn.Close();
             }
         }
 

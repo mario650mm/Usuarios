@@ -75,16 +75,16 @@
                     <asp:ImageButton ID="btnadd" runat="server" CssClass="btn btn-success fa fa-plus" AlternateText=" " OnClick="btnadd_Click"/> 
                 </div>
                 <div class="col-lg-3">
-                    <asp:ImageButton ID="btnupdate" runat="server" CssClass="btn btn-primary fa fa-pencil-square-o" AlternateText=" " OnClick="btnupdate_Click"/> 
+                    <asp:ImageButton ID="btnupdate" runat="server" CssClass="btn btn-primary fa fa-pencil-square-o" AlternateText=" " OnClick="btnupdate_Click" OnClientClick="return confirm('Estás seguro de actualizar este usuario?')"/> 
                 </div>
                 <div class="col-lg-3">
-                    <asp:ImageButton ID="btndelete" runat="server" CssClass="btn btn-danger fa fa-trash" AlternateText=" " OnClick="btndelete_Click" /> 
+                    <asp:ImageButton ID="btndelete" runat="server" CssClass="btn btn-danger fa fa-trash" AlternateText=" " OnClick="btndelete_Click" OnClientClick="return confirm('Estás seguro de eliminar este usuario?')"/> 
                 </div>
             </div>
             <br /><br />
             <div class="row">
                 <div class="col-lg-6">
-                    <asp:Label ID="lblMsg" runat="server"></asp:Label>
+                    <asp:Label ID="lblMsg" runat="server" style="color:red;"></asp:Label>
                 </div>
             </div>
             <br />
